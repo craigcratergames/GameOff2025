@@ -7,6 +7,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] RectTransform crosshair;
     [SerializeField] Transform targetPoint;
     [SerializeField] float targetDistance = 100f;
+    [SerializeField] AudioSource laserAudio;
     bool isFiring = false;
     void Start()
     {
@@ -29,6 +30,14 @@ public class PlayerWeapon : MonoBehaviour
         {
             var emmissionModule = laser.GetComponent<ParticleSystem>().emission;
             emmissionModule.enabled = isFiring;
+        }
+        if (isFiring && !laserAudio.isPlaying)
+        {
+            laserAudio.Play();
+        }
+        else if (!isFiring && laserAudio.isPlaying)
+        {
+            laserAudio.Stop();
         }
     }
     void MoveCrosshair()
